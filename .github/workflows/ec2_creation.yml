@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - main
-
+  pull_request:
+    branches:
+      - main
 jobs:
   create-ec2:
     runs-on: ubuntu-latest
@@ -22,4 +24,4 @@ jobs:
     - name: Create EC2 Instance
       run: |
         # Use AWS CLI commands to create an EC2 instance
-        aws ec2 run-instances --image-id ami-06791f9213cbb608b --instance-type t2.micro --key-name windows-key --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=MyInstance}]"
+        aws ec2 run-instances --image-id ami-06791f9213cbb608b --instance-type t2.micro --key-name windows-key --security-group-ids sg-00d739126791f1ed0 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=GitHub_runner}]"
